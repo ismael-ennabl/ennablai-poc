@@ -151,6 +151,12 @@ const ICON_PATHS = {
       <line x1="21" x2="9" y1="12" y2="12" />
     </>
   ),
+  'arrow-down': (
+    <>
+      <path d="M12 5v14" />
+      <path d="m19 12-7 7-7-7" />
+    </>
+  ),
 };
 
 function Icon({ name, size = 16, className = '', strokeWidth, style }) {
