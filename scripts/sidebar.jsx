@@ -26,9 +26,21 @@ function Sidebar({
   onNavigate,
   onSearchOpen,
   onOpenChat,
+  onLogout,
   collapsed,
   onToggleCollapse,
 }) {
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const menuRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!menuOpen) return;
+    const handler = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [menuOpen]);
   return (
     <aside
       data-screen-label="Sidebar"
@@ -121,10 +133,31 @@ function Sidebar({
       <div className="h-px bg-[#e5e5e5] shrink-0" />
 
       {/* User */}
-      <div className="p-2 shrink-0">
+      <div className="p-2 shrink-0 relative" ref={menuRef}>
+        {menuOpen && (
+          <div
+            className="absolute left-2 right-2 bottom-[58px] bg-white rounded-[10px] border border-[#e0eaf9] shadow-[0_12px_28px_-8px_rgba(27,35,55,0.18),0_3px_8px_-4px_rgba(27,35,55,0.08)] p-1 z-30"
+          >
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                onLogout && onLogout();
+              }}
+              className="flex items-center gap-2.5 w-full px-3 h-9 rounded-lg text-sm text-[#1e1e1e] hover:bg-[rgba(0,0,197,0.04)] transition-colors text-left"
+            >
+              <Icon name="log-out" size={16} className="text-[#3b3b3b]" />
+              Log out
+            </button>
+          </div>
+        )}
         <button
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-haspopup="menu"
+          aria-expanded={menuOpen}
           title={collapsed ? 'Ismael Viejo' : undefined}
-          className="flex items-center gap-2.5 w-full p-2 rounded-lg hover:bg-black/5 transition-colors whitespace-nowrap"
+          className={`flex items-center gap-2.5 w-full p-2 rounded-lg transition-colors whitespace-nowrap ${
+            menuOpen ? 'bg-[rgba(0,0,197,0.04)]' : 'hover:bg-black/5'
+          }`}
         >
           <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[#deebf8] overflow-hidden shrink-0">
             <img

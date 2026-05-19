@@ -31,7 +31,7 @@ function Library({ hasFiles, onFilesUploaded, onChatWithFile }) {
           </div>
           <button
             onClick={onFilesUploaded}
-            className="bg-[#deebf8] text-[#0a0a0a] text-sm font-medium px-4 h-[34px] rounded-full hover:bg-[#c9ddf4] transition-colors"
+            className="bg-[#0000C5] hover:bg-[#000093] text-white text-sm font-medium px-4 h-[34px] rounded-lg transition-colors"
           >
             Upload
           </button>
@@ -118,7 +118,7 @@ function Library({ hasFiles, onFilesUploaded, onChatWithFile }) {
             <Icon name="upload" size={32} className="text-[#737373] mb-4" />
             <button
               onClick={onFilesUploaded}
-              className="bg-[#0a0a0a] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#333] transition-colors"
+              className="bg-[#0000C5] hover:bg-[#000093] text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
             >
               Upload files
             </button>

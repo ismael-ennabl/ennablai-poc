@@ -46,6 +46,7 @@ function Composer({
   onSend,
   autoFocus = false,
   placeholder = 'Ask a question about your data, your documents or any insurance topic.',
+  minimal = false,
 }) {
   const textareaRef = React.useRef(null);
   const docWrapRef = React.useRef(null);
@@ -129,6 +130,7 @@ function Composer({
       </div>
 
       {/* Toolbar */}
+      {!minimal && (
       <div className="px-3 pb-3 flex items-center gap-2">
         <div className="relative" ref={docWrapRef}>
           <button
@@ -183,6 +185,26 @@ function Composer({
           <Icon name="arrow-up" size={14} strokeWidth={2.5} />
         </button>
       </div>
+      )}
+
+      {/* Minimal send button — when no toolbar is shown */}
+      {minimal && (
+        <div className="px-3 pb-3 flex items-center">
+          <button
+            onClick={send}
+            disabled={!canSend}
+            aria-label="Send"
+            title="Send"
+            className={`ml-auto flex items-center justify-center w-9 h-9 rounded-lg transition-colors ${
+              canSend
+                ? 'bg-[#0000C5] hover:bg-[#000093] text-white'
+                : 'bg-[#e0eaf9] text-[#9B9FC0] cursor-default'
+            }`}
+          >
+            <Icon name="arrow-up" size={16} strokeWidth={2.5} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

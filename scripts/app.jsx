@@ -1,4 +1,14 @@
 function App() {
+  // Boot flow: 'boot' (spinner) → 'terms' → 'ready' (full app) | 'logged-out'.
+  // Triggered on every page load (reload) per spec.
+  const [stage, setStage] = React.useState('boot');
+
+  React.useEffect(() => {
+    if (stage !== 'boot') return;
+    const t = setTimeout(() => setStage('terms'), 5000);
+    return () => clearTimeout(t);
+  }, [stage]);
+
   const [activePage, setActivePage] = React.useState('home'); // 'home' | 'library' | 'chat'
   const [hasFiles, setHasFiles] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
@@ -134,7 +144,17 @@ function App() {
 
   return (
     <div className="flex h-full font-sans relative" style={{ background: '#f7f9fd' }}>
-      <Sidebar
+      {stage === 'boot' && <BootSpinner />}
+      {stage === 'terms' && <TermsScreen onAccept={() => setStage('ready')} />}
+      {stage === 'logged-out' && (
+        <LoggedOutHome
+          onLogin={() => setStage('ready')}
+          onSignup={() => setStage('ready')}
+        />
+      )}
+      {stage === 'ready' && (
+        <React.Fragment>
+          <Sidebar
         activePage={activePage}
         activeChatId={activeChatId}
         chats={chats}
@@ -143,6 +163,7 @@ function App() {
           setSearchOpen(true);
         }}
         onOpenChat={openChat}
+        onLogout={() => setStage('logged-out')}
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
       />
@@ -167,8 +188,10 @@ function App() {
           </div>
         )}
       </main>
+        </React.Fragment>
+      )}
 
-      {searchOpen && (
+      {stage === 'ready' && searchOpen && (
         <SearchModal
           chats={chats}
           onClose={() => setSearchOpen(false)}
