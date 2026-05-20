@@ -12,6 +12,7 @@ function App() {
   const [activePage, setActivePage] = React.useState('home'); // 'home' | 'library' | 'chat'
   const [hasFiles, setHasFiles] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
+  const [aboutOpen, setAboutOpen] = React.useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false);
   const [chats, setChats] = React.useState([]); // [{id, title, messages: [{role, content, status}]}]
   const [activeChatId, setActiveChatId] = React.useState(null);
@@ -168,7 +169,16 @@ function App() {
         onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
       />
 
-      <main className="flex flex-1 min-w-0 h-full overflow-hidden">
+      <main className="flex flex-1 min-w-0 h-full overflow-hidden relative">
+        <div className="absolute top-3 right-4 z-10">
+          <button
+            onClick={() => setAboutOpen(true)}
+            className="text-xs font-medium text-[#4b5168] px-3 py-1.5 rounded-lg hover:bg-black/5 transition-colors"
+          >
+            About Ennabl AI
+          </button>
+        </div>
+
         {activePage === 'home' && <Home onSend={handleSend} />}
         {activePage === 'library' && (
           <Library
@@ -188,6 +198,26 @@ function App() {
           </div>
         )}
       </main>
+
+      {aboutOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+          <div className="absolute inset-0 bg-black/40" style={{backdropFilter:'blur(4px)'}} onClick={() => setAboutOpen(false)} />
+          <div className="relative flex flex-col w-full bg-white rounded-2xl shadow-2xl overflow-hidden" style={{maxWidth:'1100px', height:'92vh'}}>
+            <div className="flex items-center justify-between px-5 shrink-0" style={{borderBottom:'1px solid #e5e5e5', height:'48px'}}>
+              <span className="text-sm font-semibold text-[#0a0a0a]">About ennabl AI</span>
+              <button
+                onClick={() => setAboutOpen(false)}
+                className="flex items-center justify-center w-7 h-7 rounded-lg hover:bg-black/5 transition-colors text-[#0a0a0a]"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <iframe src="about.html" style={{width:'100%',height:'100%',border:'none'}} title="About ennabl AI" />
+            </div>
+          </div>
+        </div>
+      )}
         </React.Fragment>
       )}
 
