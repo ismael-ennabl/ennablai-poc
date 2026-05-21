@@ -17,7 +17,7 @@ function LoggedOutHome({ onLogin, onSignup }) {
     >
       {/* Top bar */}
       <header className="h-16 shrink-0 border-b border-[#e0eaf9] bg-white flex items-center justify-between px-6">
-        <img src="public/assets/logo.svg" alt="ennabl AI" className="h-5" />
+        <img src="assets/logo.svg" alt="ennabl AI" className="h-5" />
         <div className="flex items-center gap-3">
           <button
             onClick={onLogin}

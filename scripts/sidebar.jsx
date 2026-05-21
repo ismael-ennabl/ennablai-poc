@@ -54,7 +54,7 @@ function Sidebar({
             collapsed ? 'opacity-0' : 'opacity-100 delay-150'
           }`}
         >
-          <img src="public/assets/logo.svg" alt="ennabl AI" className="h-5 w-auto" />
+          <img src="assets/logo.svg" alt="ennabl AI" className="h-5 w-auto" />
         </div>
         <button
           onClick={onToggleCollapse}
@@ -161,7 +161,7 @@ function Sidebar({
         >
           <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[#deebf8] overflow-hidden shrink-0">
             <img
-              src="public/assets/avatar.png"
+              src="assets/avatar.png"
               alt="Ismael Viejo"
               className="w-full h-full object-cover"
             />
