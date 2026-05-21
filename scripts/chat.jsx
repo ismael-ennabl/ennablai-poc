@@ -206,23 +206,8 @@ function Chat({ chat, onSend, onRegenerate }) {
       className="flex flex-col flex-1 min-w-0 h-full"
     >
       {/* Header */}
-      <div className="flex items-center justify-between h-14 px-4 shrink-0">
-        <h1 className="text-sm text-[#0a0a0a] font-medium truncate max-w-[60%]">{chat.title}</h1>
-        <div className="flex items-center gap-1">
-          <button
-            title="Share"
-            className="flex items-center gap-1.5 px-2.5 h-8 rounded-lg text-sm text-[#0a0a0a] hover:bg-black/5 transition-colors"
-          >
-            <Icon name="share" size={14} />
-            Share
-          </button>
-          <button
-            title="More"
-            className="flex items-center justify-center w-8 h-8 rounded-lg hover:bg-black/5 transition-colors"
-          >
-            <Icon name="more-horizontal" size={16} className="text-[#0a0a0a]" />
-          </button>
-        </div>
+      <div className="flex items-center h-14 px-4 shrink-0">
+        <h1 className="text-sm text-[#0a0a0a] font-medium truncate">{chat.title}</h1>
       </div>
 
       {/* Messages */}
